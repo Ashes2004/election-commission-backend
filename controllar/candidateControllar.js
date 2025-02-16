@@ -25,7 +25,7 @@ export const loginCandidate = async (req, res) => {
         const isMatch = await bcrypt.compare(password, candidate.password);
         if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
         
-        const token = jwt.sign({ id: candidate._id, role: candidate.role }, "secretKey", { expiresIn: "1h" });
+        const token = jwt.sign({ id: candidate._id, role: candidate.role }, "hashmap", { expiresIn: "1h" });
         res.json({ token, candidate });
     } catch (error) {
         res.status(500).json({ error: error.message });
