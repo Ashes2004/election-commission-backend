@@ -3,10 +3,10 @@ import { createElection, getAllElections, getElectionById, updateElection, delet
 
 const router = express.Router();
 
-router.post("/", createElection);         // Create an election
-router.get("/", getAllElections);         // Get all elections
-router.get("/:id", getElectionById);      // Get election by ID
-router.put("/:id", updateElection);       // Update an election
-router.delete("/:id", deleteElection);    // Delete an election
+router.post("/", createElection);        
+router.get("/", getAllElections);         
+router.get("/:id", getElectionById);      
+router.put("/:id", updateElection);       
+router.delete("/:id", deleteElection);   
 
 export default router;

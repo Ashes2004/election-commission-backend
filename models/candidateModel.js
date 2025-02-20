@@ -8,6 +8,7 @@ const candidateSchema = new mongoose.Schema({
     constituency: { type: String, required: true }, // Example: Kolkata South
     symbol: { type: String, required: true }, // Election symbol (image URL or text)
     totalVotes: { type: Number, default: 0 }, // Stores votes received
+    status:{type: String , default: "pending"},
     password: { type: String, required: true },
     role: { type: String, default: "candidate" }
 }, { timestamps: true });

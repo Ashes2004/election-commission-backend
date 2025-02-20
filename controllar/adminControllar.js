@@ -47,3 +47,53 @@ export const getAdminDetails = async (req, res) => {
     }
 };
 
+
+
+
+// Get all admins
+export const getAllAdmins = async (req, res) => {
+    try {
+        const admins = await Admin.find().select("-password");
+        res.status(200).json(admins);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Update admin details
+export const updateAdmin = async (req, res) => {
+    try {
+        const adminId = req.params.id;
+        const updates = req.body;
+
+        if (updates.password) {
+            updates.password = await bcrypt.hash(updates.password, 10);
+        }
+
+        const updatedAdmin = await Admin.findByIdAndUpdate(adminId, updates, { new: true }).select("-password");
+
+        if (!updatedAdmin) {
+            return res.status(404).json({ message: "Admin not found" });
+        }
+
+        res.status(200).json({ message: "Admin updated successfully", updatedAdmin });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Delete admin
+export const deleteAdmin = async (req, res) => {
+    try {
+        const adminId = req.params.id;
+        const deletedAdmin = await Admin.findByIdAndDelete(adminId);
+
+        if (!deletedAdmin) {
+            return res.status(404).json({ message: "Admin not found" });
+        }
+
+        res.status(200).json({ message: "Admin deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};

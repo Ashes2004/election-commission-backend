@@ -7,7 +7,6 @@ const voterSchema = new mongoose.Schema({
     town: { type: String, required: true },//Kolkata
     constituency: { type: String, required: true },//Example: Kolkata south
     booth: { type: String, required: true }, // Example: "KS101" for Kolkata South Booth 101
-    elections: [{ type: mongoose.Schema.Types.ObjectId, ref: "Vote" }],
     password: { type: String, required: true },
     role: { type: String, default: "voter" }
 }, { timestamps: true });

@@ -43,12 +43,41 @@ export const getCandidateDetails = async (req, res) => {
     }
 };
 
-// Update total votes
-export const updateTotalVotes = async (req, res) => {
+
+
+// Update candidate details
+export const updateCandidate = async (req, res) => {
     try {
-        const candidate = await Candidate.findByIdAndUpdate(req.params.id, { $inc: { totalVotes: 1 } }, { new: true });
-        if (!candidate) return res.status(404).json({ message: "Candidate not found" });
-        res.json({ message: "Vote counted", candidate });
+        const candidateId = req.params.id;
+        const updates = req.body;
+
+        if (updates.password) {
+            updates.password = await bcrypt.hash(updates.password, 10);
+        }
+
+        const updatedCandidate = await Candidate.findByIdAndUpdate(candidateId, updates, { new: true }).select("-password");
+
+        if (!updatedCandidate) {
+            return res.status(404).json({ message: "Candidate not found" });
+        }
+
+        res.status(200).json({ message: "Candidate updated successfully", updatedCandidate });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Delete candidate
+export const deleteCandidate = async (req, res) => {
+    try {
+        const candidateId = req.params.id;
+        const deletedCandidate = await Candidate.findByIdAndDelete(candidateId);
+
+        if (!deletedCandidate) {
+            return res.status(404).json({ message: "Candidate not found" });
+        }
+
+        res.status(200).json({ message: "Candidate deleted successfully" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
