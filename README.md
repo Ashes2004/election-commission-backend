@@ -13,6 +13,8 @@ This is the backend for the Election Commission website, built using **Node.js, 
 
 ---
 
+
+
 ## 🛠️ Tech Stack
 
 - **Backend**: Node.js, Express.js
@@ -21,6 +23,9 @@ This is the backend for the Election Commission website, built using **Node.js, 
 - **Encryption**: bcrypt.js
 
 ---
+## ENV 
+- **PORT**: 
+- **MONGO_URI**:
 
 
 
